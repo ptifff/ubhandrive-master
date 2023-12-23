@@ -14,7 +14,11 @@ class AuthService {
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   TextEditingController email = TextEditingController();
+  TextEditingController experience = TextEditingController();
+  TextEditingController licenceNumber = TextEditingController();
+  TextEditingController licenceExpiry = TextEditingController();
   TextEditingController password = TextEditingController();
+
 
 
   final firestore = FirebaseFirestore.instance;
@@ -65,6 +69,9 @@ class AuthService {
           "firstname": firstname.text,
           "lastname": lastname.text,
           "email": email.text,
+          "experience": experience.text,
+          "licencenumber": licenceNumber.text,
+          "licenceexpiry": licenceExpiry.text,
           "password": password.text,
           "uid": auth.currentUser!.uid
         });

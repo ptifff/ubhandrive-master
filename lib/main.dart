@@ -13,6 +13,7 @@ import 'instructor_lecture_uploads.dart';
 import 'instructor_scheduling.dart';
 import 'instructor_tracking.dart';
 import 'instructor_uploading.dart';
+import 'instructor_view.dart';
 import 'learner_scheduling.dart';
 import 'learner_tracking.dart';
 import 'learning_material.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatelessWidget {
         '/homeScreen': (context) => HomeScreen(),
         '/learning_material': (context) => LearningScreen(),
         '/booking': (context) => InstructorSelection(),
-        '/learner_scheduling': (context) => learnerscheduling(),
+        '/learner_scheduling': (context) => LearnerEventScreen(),
         '/learner_tracking': (context) => learnertracking(),
         '/instructor_booking': (context) => instructorbooking(),
         // You can pass actual data here
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
         '/instructor_uploading': (context) => InstructorTopicSelection(),
         '/instructor_lectures_uploads': (context) => InstructorUploadScreen(),
         '/instructor_tracking': (context) => instructortracking(),
-        '/instructor_scheduling': (context) => instructorscheduling(),
+        '/instructor_scheduling': (context) => EventCalendarScreen(),
+        '/instructor_view': (context) => AllInstructorsScreen(),
         '/home': (context) => Home(),
 
 

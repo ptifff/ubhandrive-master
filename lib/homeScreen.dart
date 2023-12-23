@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.of(context).pushNamed('/learning_material');
                         },),
                       FeatureDrawerButton(icon: Icons.book, text: 'Booking', onTap: () {
-                        Navigator.of(context).pushNamed('/instructor_booking');
+                        Navigator.of(context).pushNamed('/instructor_view');
 
                         },),
                       FeatureDrawerButton(icon: Icons.schedule, text: 'Scheduling', onTap: () {

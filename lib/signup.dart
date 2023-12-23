@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'helper.dart';
 
 void main() {
@@ -9,19 +10,42 @@ void main() {
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(' Instructor Sign Up'),
-        backgroundColor: Colors.purple,
-
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Instructor Sign Up'),
+          backgroundColor: Colors.purple,
+        ),
+        body: InstructorRegister(),
       ),
-      body: InstructorRegister(),
     );
   }
 }
 
-class InstructorRegister extends StatelessWidget {
+class InstructorRegister extends StatefulWidget {
+  @override
+  _InstructorRegisterState createState() => _InstructorRegisterState();
+}
+
+class _InstructorRegisterState extends State<InstructorRegister> {
   AuthService authService = AuthService();
+
+  DateTime _selectedDate = DateTime.now(); // Initialize with current date
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+        authService.licenceExpiry.text = "${_selectedDate.toLocal()}".split(' ')[0];
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +53,7 @@ class InstructorRegister extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
         child: Form(
-          child: SingleChildScrollView( // Wrap with SingleChildScrollView
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -42,9 +66,7 @@ class InstructorRegister extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 TextFormField(
                   controller: authService.firstname,
                   decoration: InputDecoration(
@@ -57,9 +79,7 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 TextFormField(
                   controller: authService.lastname,
                   decoration: InputDecoration(
@@ -72,9 +92,7 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 TextFormField(
                   controller: authService.email,
                   decoration: InputDecoration(
@@ -87,11 +105,9 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 TextFormField(
-                  controller: authService.firstname,
+                  controller: authService.experience,
                   decoration: InputDecoration(
                     hintText: "Experience",
                     hintStyle: TextStyle(
@@ -102,11 +118,9 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 TextFormField(
-                  controller: authService.firstname,
+                  controller: authService.licenceNumber,
                   decoration: InputDecoration(
                     hintText: "Licence Number",
                     hintStyle: TextStyle(
@@ -117,9 +131,24 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
+                SizedBox(height: 16.0),
+                TextFormField(
+                  controller: authService.licenceExpiry,
+                  decoration: InputDecoration(
+                    hintText: "Licence Expiry",
+                    hintStyle: TextStyle(
+                      color: Colors.purple,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(Icons.calendar_today),
+                      onPressed: () => _selectDate(context),
+                    ),
+                  ),
                 ),
+                SizedBox(height: 16.0),
                 TextFormField(
                   controller: authService.password,
                   decoration: InputDecoration(
@@ -132,9 +161,7 @@ class InstructorRegister extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
+                SizedBox(height: 16.0),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.purple),
@@ -152,14 +179,17 @@ class InstructorRegister extends StatelessWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    // Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+                    // Implement navigation to login screen here
+                    // For example:
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
-                  child: Text("Already have an account? Login",
+                  child: Text(
+                    "Already have an account? Login",
                     style: TextStyle(
-                      color: Colors.purple, // Set text color to purple
+                      color: Colors.purple,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
